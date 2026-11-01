@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Mobile-first base styles. System fonts keep the app light (no web-font
+ * download on slow mobile networks).
+ */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  /* Keeps focused/scrolled-to elements clear of the ballot's fixed bottom bar. */
+  scroll-padding-bottom: 9rem;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-slate-50 text-slate-900 antialiased;
+  overflow-x: hidden;
+}
+
+/* Never let long words (names, registration numbers, URLs) widen the page. */
+main,
+p,
+li,
+dd,
+dt,
+td,
+h1,
+h2,
+h3 {
+  overflow-wrap: anywhere;
+}
+
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-indigo-600;
+}
+
+dialog::backdrop {
+  background: rgb(15 23 42 / 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
